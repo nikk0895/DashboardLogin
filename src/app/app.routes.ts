@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'career', component: CareerComponent },
   { path: 'product', component: ProductComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'adminlogin', component: AdminLoginComponent,canActivate: [AuthGuard] },
+ { path: 'adminlogin', component: AdminLoginComponent },
   { path: 'signup', component: SignupComponent },
-  {path: 'adminportal', component: AdminportalComponent, },
+  { path: 'adminportal', component: AdminportalComponent, canActivate: [AuthGuard] },
 ];

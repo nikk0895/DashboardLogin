@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: space-between;
   min-height: 100vh;
-  padding: 4rem 8%;
+  padding: 1rem 8%; /* reduced top/bottom padding */
   background: linear-gradient(135deg, #9333ea, #3b82f6);
   color: white;
 }
@@ -75,8 +75,8 @@
 }
 
 .hero-image img {
-  max-width: 1050px;
-  width: 100%;
+ width: 500px;     /* increase the fixed width */
+  max-width: 100%;  /* let it scale with screen size */
   height: auto;
   animation: fadeInRight 1s ease;
 }
@@ -212,5 +212,10 @@
 
   .about-content {
     max-width: 100%;
+  }
+  
+  .hero img {
+    width: 80%;   /* bigger on small screens */
+    max-width: 350px;
   }
 }
