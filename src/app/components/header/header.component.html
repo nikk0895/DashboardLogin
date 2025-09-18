@@ -1,0 +1,21 @@
+<header class="navbar">
+  <div class="logo">
+    <a routerLink="/">MyBrand</a>
+  </div>
+
+  <!-- Hamburger -->
+  <button class="menu-toggle" (click)="toggleMenu()">
+    <span [class.open]="menuOpen"></span>
+    <span [class.open]="menuOpen"></span>
+    <span [class.open]="menuOpen"></span>
+  </button>
+
+  <nav class="nav-links" [class.open]="menuOpen">
+    <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About Us</a>
+    <a routerLink="/career" routerLinkActive="active" (click)="closeMenu()">Career</a>
+    <a routerLink="/product" routerLinkActive="active" (click)="closeMenu()">Product</a>
+    <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact Us</a>
+    <a routerLink="/signup" class="btn signup" (click)="closeMenu()">Student</a>
+    <a routerLink="/adminlogin" class="btn login" (click)="closeMenu()">Admin</a>
+  </nav>
+</header>

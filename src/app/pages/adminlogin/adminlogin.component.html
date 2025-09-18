@@ -1,0 +1,9 @@
+<div class="adminlogin-container">
+  <h2>Admin Login</h2>
+  <form (ngSubmit)="onLogin()">
+    <input [(ngModel)]="username" name="username" placeholder="Username" required />
+    <input [(ngModel)]="password" type="password" name="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+  </form>
+  <p *ngIf="errorMessage" style="color:red;">{{ errorMessage }}</p>
+</div>
