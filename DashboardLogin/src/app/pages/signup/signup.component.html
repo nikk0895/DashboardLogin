@@ -1,0 +1,31 @@
+<section class="student-section">
+  <!-- Student Login -->
+  <div class="student-login">
+    <h2>Student Login</h2>
+    <form (ngSubmit)="onLogin()">
+      <input type="text" placeholder="Student ID" required [(ngModel)]="studentId" name="studentId" />
+      <input type="password" placeholder="Password" required [(ngModel)]="password" name="password" />
+      <button type="submit" class="btn-login">Login</button>
+    </form>
+    <p class="note">New student? <a href="#">Register here</a></p>
+  </div>
+
+  <!-- Program Info -->
+  <div class="program-info">
+    <h2>Our Programs</h2>
+    <div class="program-cards">
+      <div class="card">
+        <h3>Computer Science</h3>
+        <p>Learn AI, Web Development, Data Science, and more with hands-on projects.</p>
+      </div>
+      <div class="card">
+        <h3>Business Administration</h3>
+        <p>Gain leadership, finance, and management skills for a global career.</p>
+      </div>
+      <div class="card">
+        <h3>Design & Media</h3>
+        <p>Explore creative design, animation, and media production techniques.</p>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,70 @@
+<div class="admin-portal">
+  <div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2 class="title">Welcome Admin</h2>
+      <button (click)="selectTab('students')">View Students</button>
+      <button (click)="selectTab('batches')">Manage Batches</button>
+      <button (click)="selectTab('payments')">Check Status</button>
+      <button (click)="selectTab('bills')">Resolve Now</button>
+    </div>
+
+    <!-- Content -->
+    <div class="content" [ngSwitch]="selectedTab">
+
+      <!-- Students -->
+      <div *ngSwitchCase="'students'" class="card">
+        <h3>Students</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Course</th>
+              <th>Joining Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of students">
+              <td>{{ s.name }}</td>
+              <td>{{ s.email }}</td>
+              <td>{{ s.mobile }}</td>
+              <td>{{ s.course }}</td>
+              <td>{{ s.join_date | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Batches -->
+      <div *ngSwitchCase="'batches'" class="card">
+        <h3>Batches</h3>
+        <ul>
+          <li *ngFor="let b of batches">{{ b.batch_name }}</li>
+        </ul>
+      </div>
+
+      <!-- Payments -->
+      <div *ngSwitchCase="'payments'" class="card">
+        <h3>Payments</h3>
+        <ul>
+          <li *ngFor="let p of payments">
+            {{ p.amount | currency:'INR' }} - {{ p.status }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Bills -->
+      <div *ngSwitchCase="'bills'" class="card">
+        <h3>Pending Bills</h3>
+        <ul>
+          <li *ngFor="let b of bills">
+            {{ b.bill_no }} - {{ b.due_date | date }}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
