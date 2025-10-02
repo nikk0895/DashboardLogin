@@ -13,7 +13,7 @@
 /* Sidebar */
 .sidebar {
   width: 220px;
-    background: #1e3a8a;
+  background: #1e3a8a;
   color: white;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,7 @@
   border-radius: 4px;
   font-size: 15px;
 }
+
 .sidebar button:hover {
   background: #facc15; /* Yellow */
   color: #1e3a8a;      /* Text turns blue when hovered */
@@ -87,6 +88,78 @@ ul {
   padding-left: 20px;
 }
 
+/* === Courses Section Styling === */
+.card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Course List inside Courses */
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.card ul li {
+  margin: 0;
+}
+
+.card ul li button {
+  background: #4a90e2;
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 0.95rem;
+}
+
+.card ul li button:hover {
+  background: #357abd;
+}
+
+/* Selected Course Heading */
+.card h4 {
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #444;
+  border-bottom: 2px solid #4a90e2;
+  padding-bottom: 0.4rem;
+}
+
+/* Batch Section */
+.card h5 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Tables inside Courses */
+.card table {
+  margin-bottom: 1.5rem;
+  background: #fafafa;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card table th {
+  background: #f1f5f9;
+  font-weight: 600;
+  color: #333;
+}
+
+.card table tr:hover {
+  background: #f9fcff;
+}
+
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .layout {
@@ -106,5 +179,63 @@ ul {
 
   .content {
     padding: 1rem;
+  }
+}
+/* === Batches Section Styling === */
+.batches-container {
+  margin-top: 1rem;
+}
+
+.batch-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.batch-card {
+  flex: 1 1 calc(33.333% - 1.5rem); /* 3 per row */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.batch-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.batch-card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e3a8a; /* Blue */
+  margin-bottom: 0.5rem;
+}
+
+.batch-card .status {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #16a34a; /* Green */
+  margin-bottom: 0.8rem;
+}
+
+.batch-times {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.batch-times li {
+  font-size: 0.95rem;
+  color: #444;
+  margin: 0.3rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .batch-card {
+    flex: 1 1 100%; /* 1 per row on mobile */
   }
 }

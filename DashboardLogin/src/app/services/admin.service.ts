@@ -25,4 +25,8 @@ export class AdminService {
   getBills(): Observable<any> {
     return this.http.get(`${this.baseUrl}/bills`);
   }
+    getCourses(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/courses`);
+  }
+
 }

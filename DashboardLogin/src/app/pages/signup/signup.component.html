@@ -1,13 +1,77 @@
 <section class="student-section">
   <!-- Student Login -->
-  <div class="student-login">
+  <div class="student-login" *ngIf="!showRegister">
     <h2>Student Login</h2>
     <form (ngSubmit)="onLogin()">
-      <input type="text" placeholder="Student ID" required [(ngModel)]="studentId" name="studentId" />
-      <input type="password" placeholder="Password" required [(ngModel)]="password" name="password" />
+      <label for="studentId">Student ID</label>
+      <input id="studentId" type="text" required [(ngModel)]="studentId" name="studentId" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" required [(ngModel)]="password" name="password" />
+
       <button type="submit" class="btn-login">Login</button>
     </form>
-    <p class="note">New student? <a href="#">Register here</a></p>
+    <p class="note">
+      New student?
+      <button type="button" class="link-btn" (click)="toggleRegister($event)">Register here</button>
+    </p>
+  </div>
+
+  <!-- Student Registration -->
+  <div class="student-register" *ngIf="showRegister">
+    <h2>Student Registration</h2>
+    <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+      <label for="name">Full Name</label>
+      <input id="name" type="text" required [(ngModel)]="registerData.name" name="name" />
+
+      <label for="mobile">Phone Number</label>
+      <input id="mobile" type="text" required [(ngModel)]="registerData.mobile" name="mobile" />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" required [(ngModel)]="registerData.email" name="email" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" required [(ngModel)]="registerData.password" name="password" />
+
+      <label for="confirmPassword">Confirm Password</label>
+      <input id="confirmPassword" type="password" required [(ngModel)]="registerData.confirmPassword" name="confirmPassword" />
+
+      <label for="join_date">Join Date</label>
+      <input id="join_date" type="date" required [(ngModel)]="registerData.join_date" name="join_date" />
+
+      <label for="course">Course</label>
+      <select id="course" [(ngModel)]="registerData.course" name="course" (change)="onCourseSelect()">
+        <option value="">-- Select Course --</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Business Administration">Business Administration</option>
+        <option value="Design & Media">Design & Media</option>
+      </select>
+
+      <label for="course_fee">Course Fee</label>
+      <input id="course_fee" type="number" [value]="registerData.course_fee" name="course_fee" readonly />
+
+      <label for="amount_paid">Amount Paid</label>
+      <input id="amount_paid" type="number" [(ngModel)]="registerData.amount_paid" name="amount_paid" (input)="calculateRemaining()" />
+
+      <label for="amount_remaining">Remaining Amount</label>
+      <input id="amount_remaining" type="number" [value]="registerData.amount_remaining" name="amount_remaining" readonly />
+
+      <label for="due_date">Due Date</label>
+      <input id="due_date" type="date" [value]="registerData.due_date" name="due_date" readonly />
+
+      <label for="batch">Batch</label>
+      <select id="batch" [(ngModel)]="registerData.batch" name="batch" required>
+        <option value="Morning">Morning</option>
+        <option value="Evening">Evening</option>
+      </select>
+
+      <button type="submit" class="btn-register">Register</button>
+    </form>
+
+    <p class="note">
+      Already registered?
+      <button type="button" class="link-btn" (click)="toggleRegister($event)">Back to Login</button>
+    </p>
   </div>
 
   <!-- Program Info -->

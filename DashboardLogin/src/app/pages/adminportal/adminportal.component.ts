@@ -3,58 +3,100 @@ import { CommonModule } from '@angular/common';
 import { AdminService } from '../../services/admin.service';
 
 @Component({
-  selector: 'app-adminportal',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './adminportal.component.html',
-  styleUrls: ['./adminportal.component.css']
+selector: 'app-adminportal',
+standalone: true,
+imports: [CommonModule],
+templateUrl: './adminportal.component.html',
+styleUrls: ['./adminportal.component.css']
 })
+
 export class AdminportalComponent implements OnInit {
-  selectedTab: string = 'students';  // ✅ Default tab
-  students: any[] = [];
-  batches: any[] = [];
-  payments: any[] = [];
-  bills: any[] = [];
+selectedTab: string = 'students';  // Default tab
 
-  constructor(private adminService: AdminService) {}
+students: any[] = [];
+batches: any[] = [];
+uniqueCourses: any[] = [];
+payments: any[] = [];
+bills: any[] = [];
+courses: any[] = [];
 
-  ngOnInit(): void {
-    // ✅ Load students by default
-    this.adminService.getStudents().subscribe((data: any[]) => {
-      console.log('Default Students data:', data);
-      this.students = data;
-    });
-  }
+selectedCourse: string | null = null;
 
-  selectTab(tab: string) {
-    this.selectedTab = tab;
+constructor(private adminService: AdminService) {}
 
-    if (tab === 'students') {
-      this.adminService.getStudents().subscribe((data: any[]) => {
-        console.log('Students data:', data);
-        this.students = data;
-      });
-    }
+ngOnInit(): void {
+this.loadTabData(this.selectedTab);
+}
 
-    if (tab === 'batches') {
-      this.adminService.getBatches().subscribe((data: any[]) => {
-        console.log('Batches data:', data);
-        this.batches = data;
-      });
-    }
+selectTab(tab: string): void {
+this.selectedTab = tab;
+this.loadTabData(tab);
+}
 
-    if (tab === 'payments') {
-      this.adminService.getPayments().subscribe((data: any[]) => {
-        console.log('Payments data:', data);
-        this.payments = data;
-      });
-    }
 
-    if (tab === 'bills') {
-      this.adminService.getBills().subscribe((data: any[]) => {
-        console.log('Bills data:', data);
-        this.bills = data;
-      });
-    }
-  }
+private loadTabData(tab: string): void {
+switch (tab) {
+case 'students':
+this.adminService.getStudents().subscribe(data => {
+console.log('Students:', data);
+this.students = data;
+});
+break;
+case 'batches':
+  this.adminService.getBatches().subscribe(data => {
+    console.log('Batches:', data);
+    this.batches = data;
+
+    // 🔹 Hardcoded grouping for now
+    this.uniqueCourses = [
+      { course: "Computer Science", timings: ["Morning", "Evening"] },
+      { course: "Business Administration", timings: ["Morning", "Evening"] },
+      { course: "Design & Media", timings: ["Morning", "Evening"] }
+    ];
+  });
+  break;
+
+break;
+case 'payments':
+this.adminService.getPayments().subscribe(data => {
+console.log('Payments:', data);
+this.payments = data;
+});
+break;
+case 'bills':
+this.adminService.getBills().subscribe(data => {
+console.log('Bills:', data);
+this.bills = data;
+});
+break;
+case 'courses':
+this.adminService.getCourses().subscribe(data => {
+console.log('Courses:', data);
+this.courses = data;
+});
+break;
+}
+}
+
+// 🔹 Called when a course is clicked
+selectCourse(course: string): void {
+console.log('Selected Course:', course);
+this.selectedCourse = course;
+}
+// 🔹 Get unique list of courses from students
+getUniqueCourses(): string[] {
+  const courses = this.students.map(s => s.course);
+  return [...new Set(courses)]; // remove duplicates
+}
+
+// 🔹 Filter batches belonging to the selected course
+getBatchesForCourse(course: string): any[] 
+{ return this.batches.filter(b => b.course === course); }
+
+// 🔹 Filter students belonging to a batch
+getStudentsForBatch(batchName: string): any[] 
+{ return this.students.filter(s => s.batch === batchName && s.course === this.selectedCourse);
+
+ }
+ 
 }

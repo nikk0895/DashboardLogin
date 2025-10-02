@@ -3,10 +3,11 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <h2 class="title">Welcome Admin</h2>
-      <button (click)="selectTab('students')">View Students</button>
-      <button (click)="selectTab('batches')">Manage Batches</button>
-      <button (click)="selectTab('payments')">Check Status</button>
-      <button (click)="selectTab('bills')">Resolve Now</button>
+      <button (click)="selectTab('students')">Registred Students</button>
+      <button (click)="selectTab('batches')">Active Batches</button>
+      <button (click)="selectTab('payments')">Check Payments</button>
+      <button (click)="selectTab('bills')">Pending Bills</button>
+      <button (click)="selectTab('courses')">Courses</button>
     </div>
 
     <!-- Content -->
@@ -22,6 +23,8 @@
               <th>Email</th>
               <th>Mobile</th>
               <th>Course</th>
+              <th>Batch</th>
+              <th>Course Fee</th>
               <th>Joining Date</th>
             </tr>
           </thead>
@@ -31,38 +34,123 @@
               <td>{{ s.email }}</td>
               <td>{{ s.mobile }}</td>
               <td>{{ s.course }}</td>
+              <td>{{ s.batch }}</td>
+              <td>{{ s.course_fee | currency:'INR' }}</td>
               <td>{{ s.join_date | date }}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <!-- Batches -->
-      <div *ngSwitchCase="'batches'" class="card">
-        <h3>Batches</h3>
-        <ul>
-          <li *ngFor="let b of batches">{{ b.batch_name }}</li>
-        </ul>
-      </div>
+   <!-- Batches -->
+<div *ngSwitchCase="'batches'" class="batches-container">
+  <h3>Batches</h3>
+
+  <div class="batch-cards">
+    <div class="batch-card" *ngFor="let c of uniqueCourses">
+      <h4>{{ c.course }}</h4>
+      <p class="status">Batch Available</p>
+      <ul class="batch-times">
+        <li *ngFor="let t of c.timings">{{ t }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 
       <!-- Payments -->
       <div *ngSwitchCase="'payments'" class="card">
         <h3>Payments</h3>
-        <ul>
-          <li *ngFor="let p of payments">
-            {{ p.amount | currency:'INR' }} - {{ p.status }}
-          </li>
-        </ul>
+        <table>
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Course</th>
+              <th>Fee</th>
+              <th>Paid</th>
+              <th>Remaining</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of payments">
+              <td>{{ p.name }}</td>
+              <td>{{ p.course }}</td>
+              <td>{{ p.course_fee | currency:'INR' }}</td>
+              <td>{{ p.amount_paid | currency:'INR' }}</td>
+              <td>{{ p.amount_remaining | currency:'INR' }}</td>
+              <td>{{ p.payment_date | date:'short' }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <!-- Bills -->
       <div *ngSwitchCase="'bills'" class="card">
         <h3>Pending Bills</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Bill No</th>
+              <th>Student Name</th>
+              <th>Course</th>
+              <th>Paid</th>
+              <th>Remaining</th>
+              <th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let b of bills">
+              <td>{{ b.bill_no }}</td>
+              <td>{{ b.name}}</td>
+              <td>{{ b.course }}</td>
+              <td>{{ b.amount_paid | currency:'INR' }}</td>
+              <td>{{ b.amount_remaining | currency:'INR' }}</td>
+              <td>{{ b.due_date | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Courses -->
+      <div *ngSwitchCase="'courses'" class="card">
+        <h3>Courses</h3>
+
+        <!-- Dynamic Course List -->
         <ul>
-          <li *ngFor="let b of bills">
-            {{ b.bill_no }} - {{ b.due_date | date }}
+          <li *ngFor="let c of getUniqueCourses()">
+            <button (click)="selectCourse(c)">{{ c }}</button>
           </li>
         </ul>
+
+        <!-- Selected Course + Batches -->
+        <div *ngIf="selectedCourse">
+          <h4>{{ selectedCourse }}</h4>
+
+          <div *ngFor="let b of getBatchesForCourse(selectedCourse)">
+            <h5>{{ b.batch_name }}</h5>
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th>Course Fee</th>
+                  <th>Join Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of getStudentsForBatch(b.batch_name)">
+                  <td>{{ s.name }}</td>
+                  <td>{{ s.email }}</td>
+                  <td>{{ s.mobile }}</td>
+                  <td>{{ s.course_fee | currency:'INR' }}</td>
+                  <td>{{ s.join_date | date }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
     </div>
